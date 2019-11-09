@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  var url = "https://github.com/Biuni/PokemonGO-Pokedex/blob/master/pokedex.json";
+  var url = "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json";
 
   PokeCenter pokecenter;
 
@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     fetchData();
+    print("2nd work");
   }
 
   fetchData() async {
@@ -49,22 +50,24 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.red,
       ),
 
-      body: pokecenter == null?Center(
+      body: pokecenter == null
+          ? Center(
           child: CircularProgressIndicator(),
       )
-      : GridView.count(crossAxisCount: 2,
-      children: pokecenter.pokemon.map((pokemon) => Padding(
+      : GridView.count(
+        crossAxisCount: 2,
+      children: pokecenter.pokemon.map((poke) => Padding(
         padding: const EdgeInsets.all(2.0),
        child: InkWell(
          onTap: (){
 
            Navigator.push(context, MaterialPageRoute(builder: (context)=> PokeFact(
-             pokemon: pokemon,
+             pokemon: poke,
            )));
            
          },
          child: Hero(
-           tag: pokemon.img,
+           tag: poke.img,
            child: Card(
              elevation: 3.0,
              child: Column(
@@ -75,12 +78,12 @@ class _HomePageState extends State<HomePage> {
                  width: 100.0,
                  decoration: BoxDecoration(
                    image: DecorationImage(
-                     image:NetworkImage(pokemon.img)
+                     image:NetworkImage(poke.img)
                    ),
                  ),
                ),
                  Text(
-                   pokemon.name,
+                   poke.name,
                    style: TextStyle(fontSize:  20.0,
                        fontWeight: FontWeight.bold),
                  )
